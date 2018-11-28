@@ -1,0 +1,91 @@
+*
+{
+    font-size: 2vh !important;
+}
+
+#canvas
+{
+    display: none;
+}
+#div-img-src
+{
+    display: inline-block;
+}
+#photo-div
+{
+    display: none;
+}
+#input-img-wc
+{
+    display: none;
+}
+html
+{
+    border: 1px solid brown;
+}
+header
+{
+    border: 1px solid brown;
+    padding: 10px;
+
+}
+header li, header ul, header a, li a
+{
+    border: 1px solid brown;
+    padding: 10px;
+    display: inline-block;
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none;
+}
+header form, header input, header button
+{
+    border: 1px solid brown;
+    padding: 10px;
+    display: inline-block;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+main, div 
+{
+    border: 1px solid brown;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+main h1
+{
+    border: 1px solid brown;
+    padding: 10px;
+}
+
+main form, main input
+{
+    border: 1px solid brown;
+    padding: 10px;
+    display: inline-block;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+footer
+{
+    border: 1px solid brown;
+}
+footer h5
+{
+    border: 1px solid brown;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+nav p
+{
+    
+    display: inline;
+    font-family: 'Courier New', Courier, monospace;
+}
+section, section form, section input, section button, section textarea
+{
+    border: 1px solid brown;
+    font-family: 'Courier New', Courier, monospace;
+
+}
