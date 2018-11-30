@@ -41,6 +41,7 @@ class Dbh
             `interest_4` VARCHAR(255) NULL DEFAULT NULL , 
             `interest_5` VARCHAR(255) NULL DEFAULT NULL , 
             `location` VARCHAR(255) NULL DEFAULT NULL ,
+            `id_profile_pic` INT NULL DEFAULT NULL,
             PRIMARY KEY (`id`)) ENGINE = InnoDB;");
     }
 
@@ -263,7 +264,7 @@ class Dbh
             return false;
     }
 
-    public function updateAccAddInfo($pdo, $uname, $gender, $sex, $bio, $int1, $int2, $int3, $int4, $int5)
+    public function updateAccAdditionalInfo($pdo, $uname, $gender, $sex, $bio, $int1, $int2, $int3, $int4, $int5)
     {
         $statement = $pdo->prepare("UPDATE `tb_accounts` SET 
         `gender` = :gender, 
@@ -286,5 +287,47 @@ class Dbh
         $statement->bindParam(":int4", $int4);
         $statement->bindParam(":int5", $int5);
         $statement->execute();
+    }
+
+    //This is not working vvv
+    public function setAsProfPic($pdo, $imgId, $uName)
+    {
+        $statement = $pdo->prepare("UPDATE `tb_accounts` SET `id_profile_pic` = :imgId, WHERE `tb_accounts`.`user_name` = :uname");
+        $statement->bindParam(":uname", $uName);
+        $statement->bindParam(":imgId", $imgId);
+        $statement->execute();
+    }
+
+    public function createTbInterests($pdo)
+    {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS `db_matcha`.`tb_interests`(
+            `id_interest` INT(255) NOT NULL AUTO_INCREMENT ,
+            `interest` VARCHAR(255) NULL DEFAULT NULL ,
+            PRIMARY KEY (`id_interest`)) ENGINE = InnoDB;");
+    }
+
+    public function checkIfInterestAlreadyExists($pdo, $int)
+    {
+        $statement = $pdo->prepare("SELECT * FROM `tb_interests` WHERE `interest` = :int");
+        $statement->bindParam(":int", $int);
+        $statement->execute();
+        $row = $statement->fetchAll();
+        return ($row);
+    }
+
+    public function updateIntList($pdo, $int)
+    {
+        $statement = $pdo->prepare(
+        "INSERT INTO `tb_interests` (`id_interest`, `interest`) 
+        VALUES (NULL, :int );");
+        $statement->bindParam(":int", $int);
+        $statement->execute();
+    }
+    public function fetchAllInterests($pdo)
+    {
+        $statement = $pdo->prepare("SELECT * FROM `tb_interests`");
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        return ($rows);
     }
 }

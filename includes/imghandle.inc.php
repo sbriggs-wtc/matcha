@@ -13,7 +13,7 @@
             $img = imagecreatefromstring($img);
             unlink('save.png');
             imagepng($img, 'save.png');
-    
+    /* 
             $opt = explode(",", $_POST['options']);
             foreach($opt as $value)
             {
@@ -51,13 +51,14 @@
                         break;
                 }
             }
-
+ */
             $object = new Dbh;
             $pdo = $object->connect();
             $object->createImgStoreTb($pdo);
             $img = base64_encode(file_get_contents('save.png'));
             //$object->insertImgIntoDb($pdo, $img[1], $uname);
             $object->insertImgIntoDb($pdo, $img, $uname);
+
             echo "Your image was uploaded";
             unlink('save.png');
         }

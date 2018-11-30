@@ -1,4 +1,4 @@
-*
+/* *
 {
     font-size: 2vh !important;
 }
@@ -88,4 +88,63 @@ section, section form, section input, section button, section textarea
     border: 1px solid brown;
     font-family: 'Courier New', Courier, monospace;
 
+} */
+
+* { box-sizing: border-box; }
+body
+{
+    font: 16px Arial;
+}
+
+.autocomplete
+{
+    /*the container must be positioned relative*/
+    position: relative;
+    display: inline-block;
+}
+
+input
+{
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+input[type=text]
+{
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+input[type=submit]
+{
+    background-color: dodgerblue;
+    color: #fff;
+}
+.autocomplete-items
+{
+    position: absolute;
+    border: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div
+{
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover
+{
+    /*when hovering an item*/
+    background-color: #e9e9e9;
+}
+
+.autocomplete-active
+{
+    /*when navigating through the items using the arrow keys:*/
+    background-color: dodgerblue !important;
+    color: #ffffff;
 }

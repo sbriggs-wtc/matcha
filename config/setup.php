@@ -9,3 +9,4 @@ $object->createAccDetailsTb($pdo);
 $object->createImgStoreTb($pdo);
 $object->createCommentsTb($pdo);
 $object->createLikesTb($pdo);
+$object->createTbInterests($pdo);

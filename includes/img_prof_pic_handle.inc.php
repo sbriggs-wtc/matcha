@@ -11,8 +11,11 @@
             $object = new Dbh;
             $pdo = $object->connect();
             $object->createLikesTb($pdo);
-            $object->isDelImage($pdo, $imgId);
-            header('Location: ../upload_image.php');
+            //$object->isDelImage($pdo, $imgId);
+
+            $object->setAsProfPic($pdo, $imgId, $uName);
+            echo "set as profile pic";
+            //header('Location: ../upload_image.php');
         }
     }
     else
