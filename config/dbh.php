@@ -211,7 +211,6 @@ class Dbh
 
 
 
-
     // public function createLikesTb($pdo)
     // {
     //     $pdo->exec("CREATE TABLE IF NOT EXISTS `db_matcha`.`tb_likes` ( 
@@ -377,7 +376,7 @@ class Dbh
 
     public function setUserConnectionTime($pdo, $date_time, $uName)
     {
-        $statement = $pdo->prepare("UPDATE `tb_accounts` SET `last_ conn` = :datetime WHERE `tb_accounts`.`user_name` = :uname");
+        $statement = $pdo->prepare("UPDATE `tb_accounts` SET `last_conn` = :datetime WHERE `tb_accounts`.`user_name` = :uname");
         $statement->bindParam(":uname", $uName);
         $statement->bindParam(":datetime", $date_time);
         $statement->execute();
@@ -387,21 +386,49 @@ class Dbh
     public function createTbConnections($pdo)
     {
 
-        $pdo->exec("CREATE TABLE `db_matcha`.`connections` ( 
-            `conn_id` INT(11) NOT NULL AUTO_INCREMENT , 
-            `person_1` VARCHAR(255) NULL DEFAULT NULL , 
-            `person_2` VARCHAR(255) NULL DEFAULT NULL , 
-            `person_1_like_status` INT(11) NULL DEFAULT NULL , 
-            `person_2_like_status` INT(11) NULL DEFAULT NULL , 
+        $pdo->exec("CREATE TABLE IF NOT EXISTS`db_matcha`.`tb_likes` ( 
+            `like_id` INT(11) NOT NULL AUTO_INCREMENT , 
+            `liker` VARCHAR(255) NULL DEFAULT NULL , 
+            `likee` VARCHAR(255) NULL DEFAULT NULL , 
             PRIMARY KEY (`conn_id`)) ENGINE = InnoDB;");
     }
+
+    public function checkIfLikeExists($pdo, $liker, $likee)
+    {
+        $statement = $pdo->prepare("SELECT * FROM `tb_likes` 
+            WHERE `liker` = :liker AND `likee` = :likee LIMIT 1");
+        $statement->bindParam(":liker", $liker);
+        $statement->bindParam(":likee", $likee);
+        $statement->execute();        
+        $row = $statement->fetchAll();
+        return ($row);
+    }
+
+    public function newLike($pdo, $liker, $likee)
+    {
+        $statement = $pdo->prepare("INSERT INTO `tb_likes` (`liker`, `likee`)
+                                        VALUES (:liker, :likee);");
+        $statement->bindParam(":liker", $liker);
+        $statement->bindParam(":likee", $likee);
+        $statement->execute();
+    }
+
+    public function countUserLikes($pdo, $likee)
+    {
+        $statement = $pdo->prepare("SELECT * FROM `tb_likes` 
+            WHERE `likee` = :likee");
+        $statement->bindParam(":likee", $likee);
+        $statement->execute();        
+        $row = $statement->fetchAll();
+        return ($row);
+    }
+    public function delLike($pdo, $unliker, $unliked)
+    {
+        $statement = $pdo->prepare("DELETE FROM `tb_likes` 
+            WHERE `tb_likes`.`liker` = :unliker AND `tb_likes`.`likee` = :unliked ");
+        $statement->bindParam(":unliker", $unliker);
+        $statement->bindParam(":unliked", $unliked);
+        $statement->execute();
+    }
+
 }
-
-
-
-
-
-
-
-
-

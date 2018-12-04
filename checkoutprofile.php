@@ -7,7 +7,7 @@
     $pdo = $object->connect();
     $row = $object->findNameMatch($pdo, $user_being_checked_name);
     $src = $object->selectImgById($pdo, $row['id_profile_pic']);
-    
+    $fame_rating = count($object->countUserLikes($pdo, $user_being_checked_name));
 ?>
 <main>
     <div class="wrapper_main">
@@ -24,11 +24,12 @@
                     echo '<p>Profile image not available</p>';
                 }
             ?>
+            
             <table>
                 <tr><td>User Name: <?php echo $row['user_name'] ?></td></tr>
                 <tr><td>First Name: <?php echo $row['first_name'] ?></td></tr>
                 <tr><td>Last Name: <?php echo $row['last_name'] ?></td></tr>
-                <tr><td>Fame Rating: <?php echo $row['fame_rating'] ?></td></tr>
+                <tr><td>Fame Rating: <?php echo $fame_rating ?></td></tr>
                 <tr><td>Gender: <?php echo $row['gender'] ?></td></tr>
                 <tr><td>Sexual Preference: <?php echo $row['sexual_preference'] ?></td></tr>
                 <tr><td>Biography: <?php echo $row['biography'] ?></td></tr>
@@ -40,9 +41,14 @@
                 <tr><td>Currently Connected?: <?php echo $row['is_connected'] ?></td></tr>
                 <tr><td>Last Connection: <?php echo $row['last_conn'] ?></td></tr>
             </table>
-            <input type="button" value="Like">
-            <input type="button" value="Unlike">
-            <input type="button" value="Block">
+            <br/>
+            <form action="includes/matcha_like_handle.inc.php" method="post">
+                <input type="hidden" name="likee_name" value="<?php echo $row['user_name']; ?>"> 
+                <input type="submit" name="like" value="Like">
+                <input type="submit" name="unlike" value="Unlike">
+                <input type="submit" name="block" value="Block">
+            </form>
+            <br/>
         </section>        
     </div>
 </main>

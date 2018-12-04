@@ -10,7 +10,7 @@
             $uName = $_SESSION['username'];
             $object = new Dbh;
             $pdo = $object->connect();
-            $object->createLikesTb($pdo);
+            // $object->createLikesTb($pdo);
             //$object->isDelImage($pdo, $imgId);
 
             $object->setAsProfPic($pdo, $imgId, $uName);
