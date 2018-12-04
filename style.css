@@ -1,6 +1,6 @@
-/* *
+*
 {
-    font-size: 2vh !important;
+    font-size: 2.5vh !important;
 }
 
 #canvas
@@ -19,6 +19,22 @@
 {
     display: none;
 }
+
+/*
+
+header
+{
+    padding: 10px;
+}
+
+header li, header ul, header a, li a
+{
+    border: 1px solid brown;
+    padding: 10px;
+    display: inline-block;
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none;
+}
 html
 {
     border: 1px solid brown;
@@ -27,7 +43,6 @@ header
 {
     border: 1px solid brown;
     padding: 10px;
-
 }
 header li, header ul, header a, li a
 {
@@ -147,4 +162,37 @@ input[type=submit]
     /*when navigating through the items using the arrow keys:*/
     background-color: dodgerblue !important;
     color: #ffffff;
+}
+
+header
+{
+    padding: 10px;
+    /* background-color: #008ecc; */
+    background-color: dodgerblue;
+    color: #ffffff;
+}
+
+footer
+{
+    padding: 10px;
+    background-color: dodgerblue;
+    color: #ffffff;
+}
+
+header li, header ul, header a, li a
+{
+    background-color: dodgerblue !important;
+    color: #ffffff;
+    border: 1px solid white;
+    font: 16px Arial;
+    padding: 10px;
+    display: inline-block;
+    /* font-family: 'Courier New', Courier, monospace; */
+    text-decoration: none;
+}
+
+table, th, td
+{
+    border: 1px solid black; 
+    border-collapse: collapse;
 }

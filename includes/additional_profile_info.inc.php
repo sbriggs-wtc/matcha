@@ -5,9 +5,11 @@
 
     if (isset($_POST['add_inf_submit']))
     {
-        $gender = (!empty($_POST['gender'])) ? $_POST['gender'] : 0;
-        $sex    = (!empty($_POST['sex']))    ? $_POST['sex']    : 0;
-        $bio    = (!empty($_POST['bio']))    ? $_POST['bio']    : 0;
+        $gender     = (!empty($_POST['gender']))    ? $_POST['gender']      : 0;
+        $sex        = (!empty($_POST['sex']))       ? $_POST['sex']         : 0;
+        $bio        = (!empty($_POST['bio']))       ? $_POST['bio']         : 0;
+        $age        = (!empty($_POST['age']))       ? $_POST['age']         : 0;
+        $location   = (!empty($_POST['location']))  ? $_POST['location']    : 0;
         
         // print_r($_POST);
         if (isset($_SESSION['username']))
@@ -50,10 +52,11 @@
                     $object->updateIntList($pdo, $_POST['int5']);
             }
 
-            $object->updateAccAdditionalInfo($pdo, $uname, $gender, $sex, $bio, 
+            $object->updateAccAdditionalInfo($pdo, $uname, $gender, $sex, $bio, $age, $location,
             $_POST['int1'], $_POST['int2'], $_POST['int3'], $_POST['int4'], $_POST['int5']);
 
-            header('Location: ../additional_profile_info.php?input=profile_updated');    
+            header('Location: logout.inc.php?input=profile_updated');  
+//          header('Location: ../additional_profile_info.php?input=profile_updated');    
         }
         else
             header('Location: ../additional_profile_info.php?login=not_logged_in');    

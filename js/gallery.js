@@ -48,10 +48,11 @@ function setProfPic(clicked_id)
 {
     xhr = new XMLHttpRequest();
     xhr.open('POST', 'includes/img_prof_pic_handle.inc.php');
-    xhr.addEventListener('load', function (event){
-        var url = "gallery.php";
-        window.location = url;
-    });
+    // xhr.addEventListener('load', function (event){
+    //     var url = "gallery.php";
+    //     window.location = url;
+    // });
+    xhr.addEventListener('load', function (event){alert(this.response);});
     xhr.addEventListener('error', function (event){alert(this.response);});
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send(   "imgid="+clicked_id+

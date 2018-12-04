@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Camagru</title>
+        <title>Matcha</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -17,7 +17,9 @@
                 {
                     echo    '<li><a href="gallery.php">My Gallery</a></li>
                             <li><a href="upload_img.php">Upload An Image</a></li>
-                            <li><a href="preferences.php">Preferences</a></li>';
+                            <li><a href="preferences.php">Preferences</a></li>
+                            <li><a href="profile_suggestions.php">Profile Suggestions</a></li>
+                            <li><a href="DELETEME.html">TB</a></li>';
                 }
                 ?>
                 </ul>
@@ -31,8 +33,8 @@
                 }
                 else
                     echo    '<form action="includes/login.inc.php " method="post" autocomplete="off">
-                                <input class="input_field" type="text"      name="login_name"   placeholder="Username...">
-                                <input class="input_field" type="password"    name="login_hashPwd" placeholder="Password...">
+                                <input class="input_field" type="text" style="width:150px;" name="login_name"   placeholder="Username...">
+                                <input class="input_field" type="password" style="width:150px;" name="login_hashPwd" placeholder="Password...">
                                 <button type="submit"   name="login_submit" value="login_submit1">Login</button>
                                 <a href="forgot_passwd.php">Forgot Password?</a>
                             </form>

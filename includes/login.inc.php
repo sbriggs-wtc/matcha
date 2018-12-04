@@ -17,6 +17,12 @@
                 {
                     session_start();
                     $_SESSION['username'] = $row['user_name'];
+                    $_SESSION['gender'] = $row['gender'];
+                    $_SESSION['sexual_preference'] = $row['sexual_preference'];
+                    $_SESSION['location'] = $row['location'];
+                    $object->setUserConnectionStatus($pdo, 'Connected', $_SESSION['username']);
+                    $object->setUserConnectionTime($pdo, 'Connected', $_SESSION['username']);
+
                     header('Location: ../index.php?login=success');
                 }
                 else

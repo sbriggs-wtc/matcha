@@ -35,6 +35,7 @@ class Dbh
             `gender` VARCHAR(255) NULL DEFAULT NULL ,
             `sexual_preference` VARCHAR(255) NULL DEFAULT NULL ,  
             `biography` VARCHAR(255) NULL DEFAULT NULL , 
+            `age` INT(255) NULL DEFAULT NULL , 
             `interest_1` VARCHAR(255) NULL DEFAULT NULL , 
             `interest_2` VARCHAR(255) NULL DEFAULT NULL , 
             `interest_3` VARCHAR(255) NULL DEFAULT NULL , 
@@ -42,6 +43,7 @@ class Dbh
             `interest_5` VARCHAR(255) NULL DEFAULT NULL , 
             `location` VARCHAR(255) NULL DEFAULT NULL ,
             `id_profile_pic` INT NULL DEFAULT NULL,
+            `is_connected` INT NULL DEFAULT NULL,
             PRIMARY KEY (`id`)) ENGINE = InnoDB;");
     }
 
@@ -198,15 +200,27 @@ class Dbh
         $rows = $statement->fetchAll();
         return ($rows);
     }
-    public function createLikesTb($pdo)
-    {
-        $pdo->exec("CREATE TABLE IF NOT EXISTS `db_matcha`.`tb_likes` ( 
-            `id` INT NOT NULL AUTO_INCREMENT , 
-            `img_id` INT NULL DEFAULT NULL , 
-            `liker` VARCHAR(255) NULL DEFAULT NULL , 
-            `like` INT NULL DEFAULT NULL ,
-            PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-    }
+
+
+
+
+    /////////////////////////////////////////////////
+    // vvv REMOVE LIKES TB AND RELATED METHODS vvv //
+    /////////////////////////////////////////////////
+
+
+
+
+
+    // public function createLikesTb($pdo)
+    // {
+    //     $pdo->exec("CREATE TABLE IF NOT EXISTS `db_matcha`.`tb_likes` ( 
+    //         `id` INT NOT NULL AUTO_INCREMENT , 
+    //         `img_id` INT NULL DEFAULT NULL , 
+    //         `liker` VARCHAR(255) NULL DEFAULT NULL , 
+    //         `like` INT NULL DEFAULT NULL ,
+    //         PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+    // }
 
     public function checkIfAlreadyLikes($pdo, $imgId, $liker)
     {
@@ -236,7 +250,7 @@ class Dbh
     }
     public function selectUserImgsFromDb($pdo, $uName)
     {
-        $statement = $pdo->prepare("SELECT * FROM `tb_images` WHERE `user_name` = :uname");
+        $statement = $pdo->prepare("SELECT * FROM `tb_images` WHERE `user_name` = :uname ORDER BY `id` DESC");
         $statement->bindParam(":uname", $uName);
         $statement->execute();
         $row = $statement->fetchAll();
@@ -264,12 +278,14 @@ class Dbh
             return false;
     }
 
-    public function updateAccAdditionalInfo($pdo, $uname, $gender, $sex, $bio, $int1, $int2, $int3, $int4, $int5)
+    public function updateAccAdditionalInfo($pdo, $uname, $gender, $sex, $bio, $age, $location, $int1, $int2, $int3, $int4, $int5)
     {
         $statement = $pdo->prepare("UPDATE `tb_accounts` SET 
         `gender` = :gender, 
         `sexual_preference` = :sex,
         `biography` = :bio,
+        `age`= :age,
+        `location`= :location,
         `interest_1` = :int1,
         `interest_2` = :int2,
         `interest_3` = :int3,
@@ -281,6 +297,8 @@ class Dbh
         $statement->bindParam(":gender", $gender);
         $statement->bindParam(":sex", $sex);
         $statement->bindParam(":bio", $bio);
+        $statement->bindParam(":age", $age);
+        $statement->bindParam(":location", $location);
         $statement->bindParam(":int1", $int1);
         $statement->bindParam(":int2", $int2);
         $statement->bindParam(":int3", $int3);
@@ -292,7 +310,7 @@ class Dbh
     //This is not working vvv
     public function setAsProfPic($pdo, $imgId, $uName)
     {
-        $statement = $pdo->prepare("UPDATE `tb_accounts` SET `id_profile_pic` = :imgId, WHERE `tb_accounts`.`user_name` = :uname");
+        $statement = $pdo->prepare("UPDATE `tb_accounts` SET `id_profile_pic` = :imgId WHERE `tb_accounts`.`user_name` = :uname");
         $statement->bindParam(":uname", $uName);
         $statement->bindParam(":imgId", $imgId);
         $statement->execute();
@@ -323,6 +341,7 @@ class Dbh
         $statement->bindParam(":int", $int);
         $statement->execute();
     }
+
     public function fetchAllInterests($pdo)
     {
         $statement = $pdo->prepare("SELECT * FROM `tb_interests`");
@@ -330,4 +349,59 @@ class Dbh
         $rows = $statement->fetchAll();
         return ($rows);
     }
+
+    public function selectLimitUserProfiles($pdo, $this_page_first_result, $results_per_page)
+    {
+        $statement = $pdo->prepare("SELECT * FROM `tb_accounts` LIMIT $this_page_first_result , $results_per_page");
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        return ($rows);
+    }
+
+    public function selectImgById($pdo, $profpic_id)
+    {
+        $statement = $pdo->prepare("SELECT * FROM `tb_images` WHERE `id` = :imgid LIMIT 1");
+        $statement->bindParam(":imgid", $profpic_id);
+        $statement->execute();
+        $row = $statement->fetchAll();
+        return ($row);
+    }
+
+    public function setUserConnectionStatus($pdo, $conn_status,$uName)
+    {
+        $statement = $pdo->prepare("UPDATE `tb_accounts` SET `is_connected` = :constat WHERE `tb_accounts`.`user_name` = :uname");
+        $statement->bindParam(":uname", $uName);
+        $statement->bindParam(":constat", $conn_status);
+        $statement->execute();
+    }
+
+    public function setUserConnectionTime($pdo, $date_time, $uName)
+    {
+        $statement = $pdo->prepare("UPDATE `tb_accounts` SET `last_ conn` = :datetime WHERE `tb_accounts`.`user_name` = :uname");
+        $statement->bindParam(":uname", $uName);
+        $statement->bindParam(":datetime", $date_time);
+        $statement->execute();
+    }
+
+    //BUSY HERE
+    public function createTbConnections($pdo)
+    {
+
+        $pdo->exec("CREATE TABLE `db_matcha`.`connections` ( 
+            `conn_id` INT(11) NOT NULL AUTO_INCREMENT , 
+            `person_1` VARCHAR(255) NULL DEFAULT NULL , 
+            `person_2` VARCHAR(255) NULL DEFAULT NULL , 
+            `person_1_like_status` INT(11) NULL DEFAULT NULL , 
+            `person_2_like_status` INT(11) NULL DEFAULT NULL , 
+            PRIMARY KEY (`conn_id`)) ENGINE = InnoDB;");
+    }
 }
+
+
+
+
+
+
+
+
+

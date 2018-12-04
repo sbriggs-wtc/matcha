@@ -1,6 +1,8 @@
 <?php
     require "header.php";
     include_once 'config/dbh.php';
+    //session_start();
+    $uname = $_SESSION['username'];
 ?>
 <main>
     <div class="wrapper_main">
@@ -25,7 +27,13 @@
 
 
 
-            $rows = $object->selectLimitImgsFromDb($pdo, $this_page_first_result, $results_per_page);
+            //$rows = $object->selectLimitImgsFromDb($pdo, $this_page_first_result, $results_per_page);
+
+            //busy here
+            $rows = $object->selectUserImgsFromDb($pdo, $uname);
+
+      //      print_r($rows);
+
 
 
 

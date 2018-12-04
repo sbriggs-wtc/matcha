@@ -78,6 +78,7 @@ submitImgButton.addEventListener('click', function save()
         preexImg.value = "";
         array = new Array();
     });
+    xhr.addEventListener('load', function (event){alert(this.response);});
     xhr.addEventListener('error', function (event){alert(this.response);});
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send("file="+canvasog.toDataURL() + "&options=" + array);

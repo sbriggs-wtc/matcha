@@ -14,9 +14,14 @@
             //$object->isDelImage($pdo, $imgId);
 
             $object->setAsProfPic($pdo, $imgId, $uName);
-            echo "set as profile pic";
-            //header('Location: ../upload_image.php');
+//            header('Location: ../upload_image.php?img_upload=success');
+            echo "success";
         }
+        else
+//        header('Location: ../upload_image.php?submit=not_set');
+        echo "failed";
     }
-    else
-        echo "not logged in";
+    else 
+        echo "login failed";
+//    else
+//        header('Location: ../upload_image.php?login=fail');

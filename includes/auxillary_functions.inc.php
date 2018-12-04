@@ -35,7 +35,7 @@
         $link = "http://localhost:8080/matcha/activate_acc.php?hashKey=" .$hashKey;
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $subject = "Camagru Account Verification";
+        $subject = "Matcha Account Verification";
         $headers .= "From: sbriggs@student.wethinkcode.co.za";
         $txt =
         "
@@ -45,7 +45,7 @@
         </head>
         <body>
         Hi " . $name . ", 
-        Activate your Camagru account by
+        Activate your Matcha account by
         clicking <a href=" . $link . ">here.</a>
         </body>
         </html>

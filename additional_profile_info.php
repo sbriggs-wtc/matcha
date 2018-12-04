@@ -5,18 +5,7 @@
     $object = new Dbh;
     $pdo = $object->connect();
     $rows = $object->fetchAllInterests($pdo);
-    //print_r($rows);
 
-    //arr_interests = ["Afghanistan", "Albania", "Kekistan", "USSR"];
-
-    // echo '[';
-    // for ($i = 0; !empty($rows[$i][1]); $i++)
-    // {
-    //     echo '"' . $rows[$i][1] . '"';
-    //     if (!empty($rows[$i + 1][1]))
-    //         echo ',';
-    // }
-    // echo ']';
 ?>
 
 <main>
@@ -34,14 +23,16 @@
                 <input class="input_field" type="radio" name="sex" value="Female">Female<br/>
                 <input class="input_field" type="radio" name="sex" value="Both">Both<br/><br/>
 
-                <label>Short Biography</label><br/>
-                <input type="text" name="bio"><br/><br/>
+                <label>Your Age</label><br/>
+                <input class="input_field" type="number" name="age" style="width:500px;" value=""><br/><br/>
 
-                <label>Your Location</label><br/>
-                <input type="text" name="location"><br/><br/>
+                <label>Short Biography</label><br/>
+                <input type="text" name="bio" style="width:500px; height:200px;"><br/><br/>
+
+                <label>Your Location (Nearest City)</label><br/>
+                <input type="text" name="location" style="width:500px;"><br/><br/>
                 
                 <label>Some Of Your Interests</label><br/><br/>
-                
                 <div class="autocomplete" style="width:150px;">
                     <input id="myInput1" type="text" name="int1" placeholder="Interest 1">
                 </div>
@@ -54,23 +45,23 @@
                     <input id="myInput3" type="text" name="int3" placeholder="Interest 3">
                 </div>
                 
-                <div class="autocomplete" style="width:150px;">
+<!--                 <div class="autocomplete" style="width:150px;">
                     <input id="myInput4" type="text" name="int4" placeholder="Interest 4">
                 </div>
                 
                 <div class="autocomplete" style="width:150px;">
-                    <input id="myInput5" type="text" name="int5" placeholder="Interest 5">
+                    <input id="myInput5" type="text" name="int5" placeholder="Interest 5"> -->
                 </div><br/><br/>
 
                 <input type="submit" name="add_inf_submit" value="Submit">
-            </form>         
+            </form><br/>
         </section>        
     </div>
 </main>
 <script>
 
 //////////////////////////////////////////////////////////////////
-// vvv INTEREST #2 vvv
+// vvv INTEREST #1 vvv
 //////////////////////////////////////////////////////////////////
 
 //var arr_interests = ["Afghanistan", "Albania", "Kekistan", "USSR"];
@@ -386,7 +377,7 @@ function autocomplete(inp, arr)
     }
     document.addEventListener("click", function (e){closeAllLists(e.target);});
 }
-
+/* 
 //////////////////////////////////////////////////////////////////
 // vvv INTEREST #4 vvv
 //////////////////////////////////////////////////////////////////
@@ -560,7 +551,7 @@ function autocomplete(inp, arr)
     }
 
     document.addEventListener("click", function (e){closeAllLists(e.target);});
-}
+} */
 </script>
 <?php
     require "footer.php"
