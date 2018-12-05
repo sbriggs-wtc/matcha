@@ -9,7 +9,7 @@
 
     $object = new Dbh;
     $pdo = $object->connect();
-    $object->setUserConnectionStatus($pdo, 'Disconnected', $_SESSION['username']);
+    $object->setUserConnectionStatus($pdo, 'Offline', $_SESSION['username']);
     $object->setUserConnectionTime($pdo, $date_time, $_SESSION['username']);
 
     session_unset();

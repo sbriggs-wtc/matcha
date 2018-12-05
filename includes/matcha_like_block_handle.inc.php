@@ -6,6 +6,7 @@
     {
         $liker = $_SESSION['username'];
         $likee = $_POST['likee_name'];
+        $blocked = $likee;
         $object = new Dbh;
         $pdo = $object->connect();
         if (isset($_POST['like']))
@@ -26,11 +27,16 @@
             }
             header("Location: ../profile_suggestions.php?unlike=success");
         }
-        // if (isset($_POST['block']))
-        // {
-        //     echo "block";
-        // }
-        //header("Location: ../profile_suggestions.php?like=failed ");
+        else if (isset($_POST['block']))
+        {
+            echo "block";
+            $object->blockSelectedUser($pdo, $blocked);
+            header("Location: ../profile_suggestions.php?block=success");
+        }
+        else
+        {
+            header("Location: ../profile_suggestions.php?like=failed ");
+        }
     }
     else
         echo "not logged in";

@@ -19,6 +19,7 @@
                             <li><a href="upload_img.php">Upload An Image</a></li>
                             <li><a href="preferences.php">Preferences</a></li>
                             <li><a href="profile_suggestions.php">Profile Suggestions</a></li>
+                            <li><a href="consultations.php">Consultations</a></li>
                             <li><a href="DELETEME.html">TB</a></li>';
                 }
                 ?>

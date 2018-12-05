@@ -44,6 +44,7 @@ class Dbh
             `location` VARCHAR(255) NULL DEFAULT NULL ,
             `id_profile_pic` INT NULL DEFAULT NULL,
             `is_connected` INT NULL DEFAULT NULL,
+            `is_blocked` INT(11) NULL DEFAULT NULL,
             PRIMARY KEY (`id`)) ENGINE = InnoDB;");
     }
 
@@ -413,7 +414,7 @@ class Dbh
         $statement->execute();
     }
 
-    public function countUserLikes($pdo, $likee)
+    public function fetchUserLikes($pdo, $likee)
     {
         $statement = $pdo->prepare("SELECT * FROM `tb_likes` 
             WHERE `likee` = :likee");
@@ -422,6 +423,7 @@ class Dbh
         $row = $statement->fetchAll();
         return ($row);
     }
+
     public function delLike($pdo, $unliker, $unliked)
     {
         $statement = $pdo->prepare("DELETE FROM `tb_likes` 
@@ -431,4 +433,51 @@ class Dbh
         $statement->execute();
     }
 
+    public function createTbVisits($pdo)
+    {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS`db_matcha`.`tb_visits` ( 
+            `visit_id` INT(11) NOT NULL AUTO_INCREMENT , 
+            `visitor` VARCHAR(255) NULL DEFAULT NULL , 
+            `visitee` VARCHAR(255) NULL DEFAULT NULL , 
+            PRIMARY KEY (`visit_id`)) ENGINE = InnoDB;");
+    }
+
+    public function newVisit($pdo, $visitor, $visitee)
+    {
+        $statement = $pdo->prepare("INSERT INTO `tb_visits` (`visitor`, `visitee`)
+                                        VALUES (:visitor, :visitee);");
+        $statement->bindParam(":visitor", $visitor);
+        $statement->bindParam(":visitee", $visitee);
+        $statement->execute();
+    }
+
+    public function fetchVisits($pdo, $visitee)
+    {
+        $statement = $pdo->prepare("SELECT * FROM `tb_visits` 
+            WHERE `visitee` = :visitee");
+        $statement->bindParam(":visitee", $visitee);
+        $statement->execute();        
+        $row = $statement->fetchAll();
+        return ($row);
+    }
+
+    public function blockSelectedUser($pdo, $blocked)
+    {
+        $statement = $pdo->prepare("UPDATE `tb_accounts` 
+        SET `is_blocked` = 1 
+        WHERE `tb_accounts`.`user_name` = :uname");
+        $statement->bindParam(":uname", $blocked);
+        $statement->execute();
+    }
+
+    public function findLikeRow($pdo, $liker, $likee)
+    {
+        $statement = $pdo->prepare("SELECT * FROM `tb_likes` 
+            WHERE `liker` = :liker AND `likee` = :likee");
+        $statement->bindParam(":liker", $liker);
+        $statement->bindParam(":likee", $likee);
+        $statement->execute();        
+        $row = $statement->fetchAll();
+        return ($row);
+    }
 }
