@@ -278,7 +278,7 @@ class Dbh
             return false;
     }
 
-    public function updateAccAdditionalInfo($pdo, $uname, $gender, $sex, $bio, $age, $location, $int1, $int2, $int3, $int4, $int5)
+    public function updateAccAdditionalInfo($pdo, $uname, $gender, $sex, $bio, $age, $location, $int1, $int2, $int3)
     {
         $statement = $pdo->prepare("UPDATE `tb_accounts` SET 
         `gender` = :gender, 
@@ -288,9 +288,7 @@ class Dbh
         `location`= :location,
         `interest_1` = :int1,
         `interest_2` = :int2,
-        `interest_3` = :int3,
-        `interest_4` = :int4,
-        `interest_5` = :int5
+        `interest_3` = :int3
         WHERE `tb_accounts`.`user_name` = :uname");
 
         $statement->bindParam(":uname", $uname);
@@ -302,8 +300,6 @@ class Dbh
         $statement->bindParam(":int1", $int1);
         $statement->bindParam(":int2", $int2);
         $statement->bindParam(":int3", $int3);
-        $statement->bindParam(":int4", $int4);
-        $statement->bindParam(":int5", $int5);
         $statement->execute();
     }
 
@@ -480,4 +476,20 @@ class Dbh
         $row = $statement->fetchAll();
         return ($row);
     }
+
+    public function selectUserProfile($pdo, $uname)
+    {
+        $statement = $pdo->prepare("SELECT * FROM `tb_accounts` WHERE `user_name` = :uname");
+        $statement->bindParam(":uname", $uname);
+        $statement->execute();
+        $rows = $statement->fetchAll();
+        return ($rows);
+    }
 }
+
+
+
+
+
+
+

@@ -49,21 +49,36 @@
                     echo '<tr><td>Interest 3:' . $row['interest_3'] . '</td></tr>';
                     echo '<tr><td>Location:' . $row['location'] . '</td></tr>';
                     echo '<tr><td>Currently Online?:' . $row['is_connected'] . '</td></tr>';
-                    echo '<tr><td>Last Connection:' . $row['last_conn'] . '</td></tr>';
+                    echo '<tr><td>Last Seen:' . $row['last_conn'] . '</td></tr>';
+
+                    $rowVisitorLike = $object->findLikeRow($pdo, $visitor, $visitee);
+                    $rowVisiteeLike = $object->findLikeRow($pdo, $visitee, $visitor);
+                    if (!empty($rowVisitorLike) && !empty($rowVisiteeLike))
+                    echo "<tr><td>You are connected to this person</td></tr>";
+                    else
+                    echo "<tr><td>You are not connected to this person</td></tr>";
+
                     echo '</table>';
                     echo '<br/>';
                     echo '<form action="includes/matcha_like_block_handle.inc.php" method="post">';
 
-                    // Does the visitor like the visitee
-                    $rowVisitorLike = $object->findLikeRow($pdo, $visitor, $visitee);
-
-                    // Does the visitee like the visitor
-                    $rowVisiteeLike = $object->findLikeRow($pdo, $visitee, $visitor);
-                    if (!empty($rowVisitorLike) && !empty($rowVisiteeLike))
+                    if (!empty($rowVisitorLike))
                     {
-                        echo "YOU GUYS ARE CONNECTED<br/>";
+                        echo "<p>You like this person</p>";
+                        echo "<h3>Gallery Images:</h3>";
+                        $rowsVisiteeImgs = $object->selectUserImgsFromDb($pdo, $visitee);
+                        $i = 0;
+                        while (!empty($rowsVisiteeImgs[$i]))
+                        {
+                            $srcVisiteeImgs = $rowsVisiteeImgs[$i][1];
+                            $imgIdVisiteeImgs = $rowsVisiteeImgs[$i][0];
+                            $imgNmOwnerVisiteeImgs = $rowsVisiteeImgs[$i][2];
+                            $img_typeVisiteeImgs = "data:image/png; base64, ";
+                            echo '<div><img alt="row" src="' . $img_typeVisiteeImgs . $srcVisiteeImgs .'"/><br/>';
+                            $i++;
+                        }
                     }
-
+                    
                     echo '<input type="hidden" name="likee_name" value="' . $row['user_name'] . '">';
                     echo '<input type="submit" name="like" value="Like">';
                     echo '<input type="submit" name="unlike" value="Unlike">';

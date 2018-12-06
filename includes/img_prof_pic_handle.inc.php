@@ -14,6 +14,7 @@
             //$object->isDelImage($pdo, $imgId);
 
             $object->setAsProfPic($pdo, $imgId, $uName);
+            $_SESSION['id_profile_pic'] = $imgId;
 //            header('Location: ../upload_image.php?img_upload=success');
             echo "success";
         }
