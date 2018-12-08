@@ -19,16 +19,10 @@
                 $img = str_replace("data:image/png;base64,", "", $img);
                 $img = base64_decode($img);
                 $img = imagecreatefromstring($img);
-                //unlink('save.png');
                 imagepng($img, 'save.png');
-    
-                //$object = new Dbh;
-                //$pdo = $object->connect();
                 $object->createImgStoreTb($pdo);
                 $img = base64_encode(file_get_contents('save.png'));
-                //$object->insertImgIntoDb($pdo, $img[1], $uname);
                 $object->insertImgIntoDb($pdo, $img, $uname);
-
                 echo "Your image was uploaded";
                 unlink('save.png');
             }
@@ -40,49 +34,3 @@
     }
     else
         echo "not logged in";
-
-    // BEFORE THERE WAS AJAX THERE WAS THIS
-    //
-    // if (isset($_POST['nm-submit-preex']))
-    // {   
-    //     if (!empty($_FILES['img-upload']['name']))
-    //     {
-    //         $target_dir = "uploads/";   
-    //         $target_file = $target_dir . basename($_FILES['img-upload']['name']);
-
-    //         $object = new Dbh;
-    //         $pdo = $object->connect();
-    //         $object->createImgStoreTb($pdo);
-
-    //         $img = $_FILES['img-upload']['name'];
-    //         session_start();
-    //         $uname = $_SESSION['username'];
-    //         $object->insertImgIntoDb($pdo, $img, $uname);
-
-    //         header('Location: ../gallery.php?image=preex_successfully_saved_to_database');
-    //     }
-    //     else
-    //     header('Location: ../upload_img.php?image=no_file_selected');    
-    // }
-    // else if (isset($_POST['submit-img-button']))
-    // {
-    //     $imgString = $_POST['submit-img-button'];
-    //     //echo $imgString;
-
-    //     if (!empty($imgString))
-    //     {
-    //         $object = new Dbh;
-    //         $pdo = $object->connect();
-    //         $object->createImgStoreTb($pdo);
-    //         session_start();
-    //         $uname = $_SESSION['username'];
-    //         $object->insertImgIntoDb($pdo, $imgString, $uname);
-            
-    //         header('Location: ../gallery.php?image=wci_successfully_saved_to_database');
-    //         //print_r($_POST);
-    //     }
-    //     else
-    //         header('Location: ../upload_img.php?image=not_img_selected');    
-    // }
-    // else
-    //     header('Location: ../upload_img.php?image=not_saved_to_database');

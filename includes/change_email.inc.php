@@ -6,7 +6,6 @@
         session_start();
         $name = $_SESSION['username'];
         $email = $_POST['newEmail'];
-        //$pwd = $_POST['pwd'];
         $pwd = hash('whirlpool', $_POST['pwd']);
         if (!empty($email) && !empty($pwd))
         {

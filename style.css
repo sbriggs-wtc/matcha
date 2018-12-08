@@ -1,6 +1,6 @@
 *
 {
-    font-size: 2.5vh !important;
+    font-size: 3vh !important;
 }
 
 #canvas
@@ -184,10 +184,9 @@ header li, header ul, header a, li a
     background-color: dodgerblue !important;
     color: #ffffff;
     border: 1px solid white;
-    font: 16px Arial;
+    font: /* 16px */ Arial;
     padding: 10px;
     display: inline-block;
-    /* font-family: 'Courier New', Courier, monospace; */
     text-decoration: none;
 }
 

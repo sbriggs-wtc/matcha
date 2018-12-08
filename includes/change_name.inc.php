@@ -4,9 +4,9 @@
     if (isset($_POST['changeNameSubmit']))
     {
         session_start();
+        
         $currName = $_SESSION['username'];
-        $newName = $_POST['newName'];
-        //$pwd = $_POST['pwd'];
+        $newName = htmlspecialchars($_POST['newName']);
         $pwd = hash('whirlpool', $_POST['pwd']);
         if (!empty($newName) && !empty($pwd))
         {

@@ -55,7 +55,7 @@
 
     function sendPwdResetEmail($name, $mail, $hashKey)
     {
-        $link = "http://localhost:8080/camagru/reset_pwd.php?hashKey=" .$hashKey;
+        $link = "http://localhost:8080/matcha/reset_pwd.php?hashKey=" .$hashKey;
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $subject = "Reset Password";
@@ -77,7 +77,7 @@
 
     function sendCommentNotificationEmail($name, $mail)
     {
-        $link = "http://localhost:8080/camagru/reset_pwd.php";
+        // $link = "http://localhost:8080/matcha/reset_pwd.php";
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $subject = "Comment Notification";

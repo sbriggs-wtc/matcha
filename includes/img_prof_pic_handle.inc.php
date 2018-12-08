@@ -10,19 +10,12 @@
             $uName = $_SESSION['username'];
             $object = new Dbh;
             $pdo = $object->connect();
-            // $object->createLikesTb($pdo);
-            //$object->isDelImage($pdo, $imgId);
-
             $object->setAsProfPic($pdo, $imgId, $uName);
             $_SESSION['id_profile_pic'] = $imgId;
-//            header('Location: ../upload_image.php?img_upload=success');
             echo "success";
         }
         else
-//        header('Location: ../upload_image.php?submit=not_set');
         echo "failed";
     }
     else 
         echo "login failed";
-//    else
-//        header('Location: ../upload_image.php?login=fail');

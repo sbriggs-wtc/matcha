@@ -5,7 +5,6 @@
     {
         session_start();
         $name = $_SESSION['username'];
-        //$pwd = $_POST['pwd'];
         $pwd = hash('whirlpool', $_POST['pwd']);
         $notif = empty($_POST['notif']) ? 0 : 1;
         if (!empty($pwd))
